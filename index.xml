@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>卜陋专匠</title>
+    <link>http://blozer.com/</link>
+    <description>Recent content on 卜陋专匠</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://blozer.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>record my </title>
+      <link>http://blozer.com/post/readme/</link>
+      <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/post/readme/</guid>
+      <description>README </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://blozer.com/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/about/</guid>
+      <description>About Me guojun Wu is a software engineer,working in Shanghai chinasoft company.As software engineer.Usually like to study new technology.I have some programe exprience with c/c++ and java.
+I also like to develope web technology for myself test, for example vueJs React and so on .
+for other programe languages rust go i like too.
+input grass ,out milk.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://blozer.com/notes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/notes/</guid>
+      <description>Go 语言学习笔记 Envoy 学习笔记</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://blozer.com/search/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/search/placeholder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Posts Archive</title>
+      <link>http://blozer.com/archive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/archive/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

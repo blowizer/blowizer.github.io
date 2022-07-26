@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 卜陋专匠</title>
+    <link>http://blozer.com/post/</link>
+    <description>Recent content in Posts on 卜陋专匠</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://blozer.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>record my </title>
+      <link>http://blozer.com/post/readme/</link>
+      <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://blozer.com/post/readme/</guid>
+      <description>README </description>
+    </item>
+    
+  </channel>
+</rss>
