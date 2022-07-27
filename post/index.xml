@@ -2,18 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on 卜陋专匠</title>
-    <link>http://blozer.com/post/</link>
+    <link>https://blowizer.com/post/</link>
     <description>Recent content in Posts on 卜陋专匠</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://blozer.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blowizer.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>record my </title>
-      <link>http://blozer.com/post/readme/</link>
+      <title>重新编排 c 代码 </title>
+      <link>https://blowizer.com/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/</link>
       <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://blozer.com/post/readme/</guid>
-      <description>README </description>
+      <guid>https://blowizer.com/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/</guid>
+      <description>问题描述 字符串被显示为acssi码, 数值被hex加减 #define STR_BUFLEN (0x792+3274-0x143c) sprintf(&amp;#34;stmp&amp;#34;, &amp;#34;\x25\x30\x2a\x64&amp;#34;,nLen, nNum&amp;#34;); 转换思路 字符: acssi 转 string 数值: 计算出值 贴代码 #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;errno.h&amp;gt; #define setnull(x) memset(&amp;amp;(x), 0, sizeof(x)) #define</description>
+    </item>
+    
+    <item>
+      <title>Loadrunner 测试</title>
+      <link>https://blowizer.com/post/2022-06-21-loadrunner%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/post/2022-06-21-loadrunner%E6%B5%8B%E8%AF%95/</guid>
+      <description>创建脚本 创建 录制 截取报文 替换空格和换行 创建socket loadrunner gennerator 中ctrl+r 录制发送报文 生成如下内容 参数化流水号,右健所选内容,命名为seqNu</description>
+    </item>
+    
+    <item>
+      <title>刷脸支付Netty异常 </title>
+      <link>https://blowizer.com/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/</guid>
+      <description>netty 常见问题 内存溢出 对于交易报文比较小是问题不会暴漏，当数据报文大于60k时就会引发内存溢出问题。 对此问题注意io.netty.buffer.</description>
     </item>
     
   </channel>

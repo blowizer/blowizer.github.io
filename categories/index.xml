@@ -2,9 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 卜陋专匠</title>
-    <link>http://blozer.com/categories/</link>
+    <link>https://blowizer.com/categories/</link>
     <description>Recent content in Categories on 卜陋专匠</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://blozer.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blowizer.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes</title>
+      <link>https://blowizer.com/categories/notes/</link>
+      <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/categories/notes/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

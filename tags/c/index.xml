@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c on 卜陋专匠</title>
+    <link>https://blowizer.com/tags/c/</link>
+    <description>Recent content in c on 卜陋专匠</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blowizer.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>重新编排 c 代码 </title>
+      <link>https://blowizer.com/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/</link>
+      <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/</guid>
+      <description>问题描述 字符串被显示为acssi码, 数值被hex加减 #define STR_BUFLEN (0x792+3274-0x143c) sprintf(&amp;#34;stmp&amp;#34;, &amp;#34;\x25\x30\x2a\x64&amp;#34;,nLen, nNum&amp;#34;); 转换思路 字符: acssi 转 string 数值: 计算出值 贴代码 #include &amp;lt;unistd.h&amp;gt; #include &amp;lt;fcntl.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;errno.h&amp;gt; #define setnull(x) memset(&amp;amp;(x), 0, sizeof(x)) #define</description>
+    </item>
+    
+  </channel>
+</rss>

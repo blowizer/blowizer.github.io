@@ -2,9 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 卜陋专匠</title>
-    <link>http://blozer.com/tags/</link>
+    <link>https://blowizer.com/tags/</link>
     <description>Recent content in Tags on 卜陋专匠</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://blozer.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blowizer.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>c</title>
+      <link>https://blowizer.com/tags/c/</link>
+      <pubDate>Sat, 09 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/tags/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>测试</title>
+      <link>https://blowizer.com/tags/%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/tags/%E6%B5%8B%E8%AF%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>开发</title>
+      <link>https://blowizer.com/tags/%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/tags/%E5%BC%80%E5%8F%91/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

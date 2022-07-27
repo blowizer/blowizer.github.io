@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="刷脸支付Netty异常 " />
+    <meta property="og:title" content="刷脸支付Netty异常 " />
+    <meta property="twitter:title" content="刷脸支付Netty异常 " />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="武国军, blowizer, blwoizer, , 武国军的网络日志, 武国军的博客, blowizer Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Tags | 与你同行</title>
+    <title>刷脸支付Netty异常  | 与你同行</title>
 
-    <link rel="canonical" href="/tags/">
+    <link rel="canonical" href="/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/">
 
     
     
@@ -153,14 +153,41 @@
 
 
 
-<header class="intro-header" style="background-image: url('/img/wym.jpg')">
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/post-bg-coffee.jpeg')
+    }
+</style>
+
+<header class="intro-header" >
+
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>卜陋专匠 </h1>
-                    
-		    <span class="subheading">因挖坑、补陋,而专业!!!</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E5%BC%80%E5%8F%91" title="开发">
+                            开发
+                        </a>
+                        
+                    </div>
+                    <h1>刷脸支付Netty异常 </h1>
+                    <h2 class="subheading">奇门遁甲</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                blowizer
+                             
+                            on 
+                            Tuesday, June 16, 2020
+                            
+                            
+                            
+                            
+                    </span>
                 </div>
             </div>
         </div>
@@ -173,19 +200,128 @@
 <article>
     <div class="container">
         <div class="row">
+
             
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-         	
+                
+                <h3 id="netty-常见问题">netty 常见问题</h3>
+<ol>
+<li>内存溢出</li>
+</ol>
+<p>对于交易报文比较小是问题不会暴漏，当数据报文大于60k时就会引发内存溢出问题。 对此问题注意io.netty.buffer.ByteBuf的正确使用。有时可能在哪用ByteBuf 做了缓存。这个类比较特殊Gc不会自动回收。所以必须手动回收，可以通过以下方法释放。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>io<span style="color:#ff79c6">.</span><span style="color:#50fa7b">netty</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">util</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">ReferenceCountUtil</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">release</span><span style="color:#ff79c6">(</span>byteBuf<span style="color:#ff79c6">);</span>
+</span></span></code></pre></div><ol start="2">
+<li>刷脸报文无法接收</li>
+</ol>
+<p>对于刷脸签约交易包含图片信息一般为30kb～300kb，可能报文大一些netty 开启HttpServer 在Handler 的ChannleRead0 中接收的报文长度为0，截取报文会发现应答Request Entity too large。 因为在可能在ChannelInitializer初始化通道时设置报文的大小。一般都是65335。 我们可以修改大小。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ChannelPipline pipeline <span style="color:#ff79c6">=</span> ch<span style="color:#ff79c6">.</span><span style="color:#50fa7b">pipeline</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>pipeline<span style="color:#ff79c6">.</span><span style="color:#50fa7b">addLast</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;http-aggregator&#34;</span><span style="color:#ff79c6">,</span>  <span style="color:#ff79c6">new</span> HttpObjectAggregator<span style="color:#ff79c6">(</span>65535<span style="color:#ff79c6">*</span>10<span style="color:#ff79c6">));</span>
+</span></span></code></pre></div><ol start="3">
+<li>性能压测存在部分报文没有应答</li>
+</ol>
+<p>对于这样的问题可能是关闭通道的问题。主要是关闭通道调用的问题。
+1.<code>Channel.close()</code> ；
+2.<code>hannel.write(ChannelBuffers.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);</code></p>
+<p>使用1.关闭通道在交易tps小时没问题，但是当你并发比较高时，后端系统耗时比较长，每笔交易在排队。如果设置的超时时间到，还没等到应答。调用1的方法就会关闭通道。如果调用2就不会。因为方法1在io线程正在写入时，突然关闭通道导致报文不完整或者没有应答。通过添加监听器。能使报文完整写入。那为啥还有1方法存在呢，因为是业务场景用的不一样。如果是通知类交易高并发下收不收都无所谓。反而性能会更好，如果业务场景要求每笔交易保证实时有效。那只能通过增加监听器了。</p>
+<ol start="4">
+<li>
+<p>数据sm3计算摘要值是最好不要讲getByte(&ldquo;GBK&rdquo;)以参数的形式传入，会影响结果。最好定义byte[] 变量之后传入。</p>
+</li>
+<li>
+<p>当数据报文过大比如是人脸图片信息，请求报文为xml格式需转换为map ，中父类获取标签值比如:<!-- raw HTML omitted -->此处有90k字符<!-- raw HTML omitted -->是设定值读入输入流的大小，如果每次没有读取完，会多次读入导致，图片信息被覆盖，最终导致只保留最后一次读入此标签的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>SAXHandler ts <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> SAxHandler<span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>MapXmlSaxHandler hdl <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> MapXmlSaxHandler<span style="color:#ff79c6">();</span><span style="color:#6272a4">//自定义转换处理
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>ts<span style="color:#ff79c6">.</span><span style="color:#50fa7b">setXhandler</span><span style="color:#ff79c6">(</span>hdl<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>SAXParserFactory factory <span style="color:#ff79c6">=</span> SAXParserFactroy<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>SAXParser paser <span style="color:#ff79c6">=</span> factory<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newSAXParser</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>parser<span style="color:#ff79c6">.</span><span style="color:#50fa7b">parse</span><span style="color:#ff79c6">(</span><span style="color:#ff79c6">new</span> ByteArrayInputStream<span style="color:#ff79c6">(</span>xml<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getBytes</span><span style="color:#ff79c6">(),</span>SAXHandler<span style="color:#ff79c6">));</span>
+</span></span></code></pre></div></li>
+</ol>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://blowizer.com/"><img src="/img/favicon.png" />卜陋专匠</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/post/2022-06-21-loadrunner%E6%B5%8B%E8%AF%95/" data-toggle="tooltip" data-placement="top" title="Loadrunner 测试">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
                 
 
 
 
-
             </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
             
             <div class="
                 col-lg-8 col-lg-offset-2
@@ -285,7 +421,7 @@
             
            
                    <li>
-                       <a href='/tags/index.xml' rel="alternate" type="application/rss+xml" title="卜陋专匠" >
+                       <a href='' rel="alternate" type="application/rss+xml" title="卜陋专匠" >
                            <span class="fa-stack fa-lg">
                                <i class="fas fa-circle fa-stack-2x"></i>
                                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

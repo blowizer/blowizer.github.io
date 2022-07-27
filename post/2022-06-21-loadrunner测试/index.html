@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="卜陋专匠">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://blowizer.com//img/wym.jpg">
+    <meta property="twitter:image" content="https://blowizer.com//img/wym.jpg" />
+    
+
+    
+    <meta name="title" content="Loadrunner 测试" />
+    <meta property="og:title" content="Loadrunner 测试" />
+    <meta property="twitter:title" content="Loadrunner 测试" />
+    
+
+    
+    <meta name="description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="武国军, blowizer, blwoizer, , 武国军的网络日志, 武国军的博客, blowizer Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Loadrunner 测试 | 与你同行</title>
+
+    <link rel="canonical" href="/post/2022-06-21-loadrunner%E6%B5%8B%E8%AF%95/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.1/css/all.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">卜陋专匠</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/notes">notes</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive/">ARCHIVE</a></li>
+                    
+                        <li><a href="/notes/">NOTES</a></li>
+                    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/post-bg-coffee.jpeg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E6%B5%8B%E8%AF%95" title="测试">
+                            测试
+                        </a>
+                        
+                    </div>
+                    <h1>Loadrunner 测试</h1>
+                    <h2 class="subheading">奇门遁甲</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                blowizer
+                             
+                            on 
+                            Thursday, June 9, 2022
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h1 id="创建脚本">创建脚本</h1>
+<h2 id="创建">创建</h2>
+<p>
+  <img src="https://img-blog.csdnimg.cn/755315fc6b354e5188c22021469069ac.png#pic_center" alt="创建socket script">
+
+</p>
+<h2 id="录制">录制</h2>
+<ul>
+<li>截取报文
+
+  <img src="https://img-blog.csdnimg.cn/32d8310350104421aeced18fbca2be6f.png" alt="在这里插入图片描述">
+
+</li>
+<li></li>
+<li>替换空格和换行
+  <img src="https://img-blog.csdnimg.cn/6438a7e269654c49ac6e6df09280b55c.png" alt="">
+
+</li>
+<li>创建socket
+
+  <img src="https://img-blog.csdnimg.cn/cf42d18fb16c4c3db1c1e9772f280e24.png" alt="">
+
+</li>
+<li>loadrunner gennerator 中ctrl+r 录制发送报文 生成如下内容</li>
+</ul>
+<blockquote>
+<p>参数化流水号,右健所选内容,命名为seqNum_6 格式为%lu6
+
+  <img src="https://img-blog.csdnimg.cn/f303cd697db94445a5a7a9cc7208b4bd.png" alt="在这里插入图片描述">
+
+
+在Action.c 中添加代码</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#6272a4">/*********************************************************************
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"> * Created by Windows Sockets Recorder
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"> * Created on: Wed Jun 16 11:06:06
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"> *********************************************************************/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&#34;lrs.h&#34;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Action()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> rc<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>Data, <span style="color:#ff79c6">*</span>p,<span style="color:#ff79c6">*</span>q;
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">int</span> Size;
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> index[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> hexStr[<span style="color:#bd93f9">20</span>]<span style="color:#ff79c6">=</span>{<span style="color:#bd93f9">0</span>};
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> strByte[<span style="color:#bd93f9">20</span>]<span style="color:#ff79c6">=</span>{<span style="color:#bd93f9">0</span>};
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">unsigned</span> <span style="color:#8be9fd">char</span> hexByte[<span style="color:#bd93f9">20</span>]<span style="color:#ff79c6">=</span>{<span style="color:#bd93f9">0</span>};
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">unsigned</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>unitptr;
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> rSeqNum[<span style="color:#bd93f9">20</span>] <span style="color:#ff79c6">=</span> {<span style="color:#bd93f9">0</span>};
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">int</span> len <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">int</span> i,j,k,ret;
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">int</span> z <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//设定开始事务
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span> 
+</span></span><span style="display:flex;"><span>    len <span style="color:#ff79c6">=</span> strlen(lr_eval_string(<span style="color:#f1fa8c">&#34;{seqNum_6}&#34;</span>));
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    p <span style="color:#ff79c6">=</span> lr_eval_string(<span style="color:#f1fa8c">&#34;{seqNum_6}&#34;</span>) ;
+</span></span><span style="display:flex;"><span>    ret <span style="color:#ff79c6">=</span> str2hex(rSeqNum,<span style="color:#bd93f9">6</span>,p);
+</span></span><span style="display:flex;"><span>    lr_output_message(<span style="color:#f1fa8c">&#34;str=%s, len = %d&#34;</span>,p, ret);
+</span></span><span style="display:flex;"><span>    lr_output_message(<span style="color:#f1fa8c">&#34;str=%s, len = %d&#34;</span>,rSeqNum, ret);
+</span></span><span style="display:flex;"><span>    HexStrTobyte(p,hexByte,<span style="color:#ff79c6">&amp;</span>len);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (i <span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>;i <span style="color:#ff79c6">&lt;</span> len ; i<span style="color:#ff79c6">++</span>){
+</span></span><span style="display:flex;"><span>    	lr_output_message(<span style="color:#f1fa8c">&#34;str=%02x,&#34;</span>,hexByte[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    q <span style="color:#ff79c6">=</span> hexStr;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>   lr_output_message(<span style="color:#f1fa8c">&#34;str=%s&#34;</span>,p);
+</span></span><span style="display:flex;"><span>   len <span style="color:#ff79c6">=</span> strlen(p);
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">for</span> (j<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>; j<span style="color:#ff79c6">&lt;</span>len<span style="color:#ff79c6">/</span><span style="color:#bd93f9">2</span> ; j<span style="color:#ff79c6">++</span>){
+</span></span><span style="display:flex;"><span>   		memcpy(q,<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\\</span><span style="color:#f1fa8c">x&#34;</span>,<span style="color:#bd93f9">2</span>);  
+</span></span><span style="display:flex;"><span>   		memcpy(q<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>, p,<span style="color:#bd93f9">2</span>);  		
+</span></span><span style="display:flex;"><span>   		p<span style="color:#ff79c6">+=</span><span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>   		q<span style="color:#ff79c6">+=</span><span style="color:#bd93f9">4</span>;	
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>  lr_output_message(<span style="color:#f1fa8c">&#34;str=%s&#34;</span>,hexStr);
+</span></span><span style="display:flex;"><span>  lr_save_string(hexStr,<span style="color:#f1fa8c">&#34;seqN&#34;</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">#if 1
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>    lrs_startup(<span style="color:#bd93f9">257</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//创建socketS
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    lr_start_transaction(<span style="color:#f1fa8c">&#34;create_socket&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    rc <span style="color:#ff79c6">=</span> lrs_create_socket(<span style="color:#f1fa8c">&#34;socket0&#34;</span>, <span style="color:#f1fa8c">&#34;TCP&#34;</span>, <span style="color:#f1fa8c">&#34;RemoteHost=127.0.0.1:32001&#34;</span>,  LrsLastArg);
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//判断套接字创建是否成功
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span> (rc<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span>){
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;create_socket&#34;</span>, LR_PASS); 
+</span></span><span style="display:flex;"><span>    	lr_output_message(<span style="color:#f1fa8c">&#34;Socket was successfully send &#34;</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;create_socket&#34;</span>, LR_FAIL); 
+</span></span><span style="display:flex;"><span>    	lr_output_message(<span style="color:#f1fa8c">&#34;An error occurred while closing the socket, Error Code: %d&#34;</span>, rc);
+</span></span><span style="display:flex;"><span>    	
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//判断socket是否链接成功的事务，0表示创建成功 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	lr_start_transaction(<span style="color:#f1fa8c">&#34;send_socket&#34;</span>);   
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//发送安全会话建立请求buf0为在data.ws中定义的发送变量     
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	lrs_send(<span style="color:#f1fa8c">&#34;socket0&#34;</span>, <span style="color:#f1fa8c">&#34;buf0&#34;</span>, LrsLastArg);
+</span></span><span style="display:flex;"><span> 	<span style="color:#6272a4">//设置连接超时时间为1秒
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	lrs_set_recv_timeout(<span style="color:#bd93f9">45</span>,<span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span> (rc<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span>){
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;send_socket&#34;</span>, LR_PASS); 
+</span></span><span style="display:flex;"><span>    	lr_output_message(<span style="color:#f1fa8c">&#34;Socket was successfully send &#34;</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;send_socket&#34;</span>, LR_FAIL); 
+</span></span><span style="display:flex;"><span>    	lr_output_message(<span style="color:#f1fa8c">&#34;An error occurred while send the socket, Error Code: %d&#34;</span>, rc);
+</span></span><span style="display:flex;"><span>    	
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//设置接收超时时间为1秒
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//lrs_set_recv_timeout2(45,0);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	lr_output_message(<span style="color:#f1fa8c">&#34;Socket was successfully send&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//接收消息，存放在buf1中，buf1是在data.ws中定义的接收数组，注意数组长度一定要大于等于实际接收长度
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    lrs_receive(<span style="color:#f1fa8c">&#34;socket0&#34;</span>, <span style="color:#f1fa8c">&#34;buf1&#34;</span>, LrsLastArg); 
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//把Socket最后接收的字节数组，长度放在recvlen中，内容放在recvbuf中
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//lrs_get_last_received_buffer(&#34;socket0&#34;,&amp;recvbuf,&amp;recvlen);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	
+</span></span><span style="display:flex;"><span>	 lr_start_transaction(<span style="color:#f1fa8c">&#34;received_socket&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//lrs_save_param(&#34;socket0&#34;, NULL, &#34;F39&#34;, 39, 2);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	<span style="color:#6272a4">//lr_message (&#34;F39: %s&#34;, lr_eval_string(&#34;{F39}&#34;));
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    lrs_get_last_received_buffer(<span style="color:#f1fa8c">&#34;socket0&#34;</span>,<span style="color:#ff79c6">&amp;</span>Data,<span style="color:#ff79c6">&amp;</span>Size);
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//lr_message(&#34;报文内容:%s&#34;,Data);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	<span style="color:#6272a4">//lr_message(&#34;应答码第39位:%x&#34;,Data[39]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	<span style="color:#6272a4">//lr_message(&#34;应答码第40位:%x&#34;,Data[40]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>		<span style="color:#6272a4">//获取流水号000000
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span>(Size <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">116</span>){
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;接收报文长度 116 == %d&#34;</span>, Size);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;received_socket&#34;</span>, LR_PASS);
+</span></span><span style="display:flex;"><span>	}<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;接收报文长度不够116 != %d&#34;</span>, Size);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;received_socket&#34;</span>, LR_FAIL);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//memcpy(F39,lr_eval_string(&#34;{F39}&#34;),2);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	<span style="color:#6272a4">//lr_output_message(&#34;recvbuf: %X&#34;,recvbuf);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	 lr_start_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0-33&#34;</span>);	
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//获取流水号000000
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//if(Data[32]==0x45&amp;&amp;Data[33]==0x34){
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    memcpy(rSeqNum, Data<span style="color:#ff79c6">+</span><span style="color:#bd93f9">31</span>,<span style="color:#bd93f9">3</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span>(<span style="color:#ff79c6">!</span>memcmp(Data<span style="color:#ff79c6">+</span><span style="color:#bd93f9">31</span>,hexByte,<span style="color:#bd93f9">3</span>)){
+</span></span><span style="display:flex;"><span>    	
+</span></span><span style="display:flex;"><span>		lr_log_message(<span style="color:#f1fa8c">&#34;流水号位：%3.3s&#34;</span>,Data<span style="color:#ff79c6">+</span><span style="color:#bd93f9">32</span>);
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;交易流水一致&#34;</span>);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0-33&#34;</span>, LR_PASS);
+</span></span><span style="display:flex;"><span>	}<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>		lr_log_message(<span style="color:#f1fa8c">&#34;流水号4位：%x&#34;</span>,Data[<span style="color:#bd93f9">33</span>]);
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;交易流水不一致&#34;</span>);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0-33&#34;</span>, LR_FAIL);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	 lr_start_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0&#34;</span>);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//获取应答码000000
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span>(Data[<span style="color:#bd93f9">39</span>]<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0x41</span><span style="color:#ff79c6">&amp;&amp;</span>Data[<span style="color:#bd93f9">40</span>]<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0x30</span>){
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;交易成功&#34;</span>);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0&#34;</span>, LR_PASS);
+</span></span><span style="display:flex;"><span>	}<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		lr_output_message(<span style="color:#f1fa8c">&#34;交易失败&#34;</span>);
+</span></span><span style="display:flex;"><span>		lr_end_transaction(<span style="color:#f1fa8c">&#34;ITMP-9121-A0&#34;</span>, LR_FAIL); 
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//关闭socket
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	lrs_close_socket(<span style="color:#f1fa8c">&#34;socket0&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">//lrs_free_buffer(lseqNum);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">#endif
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>	<span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> test_printf5(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>str, <span style="color:#8be9fd">int</span> length)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> iii;
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#f1fa8c">&#34;the str is:&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (iii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; iii <span style="color:#ff79c6">&lt;</span> length; iii<span style="color:#ff79c6">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#f1fa8c">&#34;%02x &#34;</span>, str[iii]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">/*str to hex,
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">字符串转换为16进制
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">利用snprintf 函数
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">int snprintf(char* dest_str,size_t size,const char* format,...);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">功能:将可变参数以format的格式转换到dest_str中，并可以用%s打印出来。
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">1、dest_str:目标字符串，即输出字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">2、size: 转换字符控制长度。
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">(1) 如果格式化后的字符串长度 &lt; size，则将此字符串全部复制到str中，并给其后添加一个字符串结束符(&#39;\0&#39;)；
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">(2) 如果格式化后的字符串长度 &gt;= size，则只将其中的(size-1)个字符复制到str中，并给其后添加一个字符串结束符(&#39;\0&#39;)，返回值为欲写入的字符串长度。
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">3、format :转换为某个格式，例如：%2d,%04X,%02X。
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">4、...:需要转换的字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> str2hex(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>out_string, <span style="color:#8be9fd">int</span> length, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>in_string)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> index;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>fmt <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;%02x&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (index <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; index <span style="color:#ff79c6">&lt;</span> length; index<span style="color:#ff79c6">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        snprintf((<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">&amp;</span>out_string[index <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">1</span>], <span style="color:#bd93f9">3</span>, fmt, in_string[index]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> (length <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> HexStrTobyte(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>str, <span style="color:#8be9fd">unsigned</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>out, <span style="color:#8be9fd">unsigned</span> <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>outlen)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">=</span> str;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> high <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, low <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> tmplen <span style="color:#ff79c6">=</span> strlen(p), cnt <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    tmplen <span style="color:#ff79c6">=</span> strlen(p);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">while</span> (cnt <span style="color:#ff79c6">&lt;</span> (tmplen <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        high <span style="color:#ff79c6">=</span> ((<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;9&#39;</span>) <span style="color:#ff79c6">&amp;&amp;</span> ((<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;F&#39;</span>) <span style="color:#ff79c6">||</span> (<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;f&#39;</span>))) <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">48</span> <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">7</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">48</span>;
+</span></span><span style="display:flex;"><span>        low <span style="color:#ff79c6">=</span> (<span style="color:#ff79c6">*</span>(<span style="color:#ff79c6">++</span>p) <span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;9&#39;</span> <span style="color:#ff79c6">&amp;&amp;</span> ((<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;F&#39;</span>) <span style="color:#ff79c6">||</span> (<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;f&#39;</span>))) <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">*</span>(p)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">48</span> <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">7</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">*</span>(p)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">48</span>;
+</span></span><span style="display:flex;"><span>        out[cnt] <span style="color:#ff79c6">=</span> ((high <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x0f</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">4</span> <span style="color:#ff79c6">|</span> (low <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x0f</span>));
+</span></span><span style="display:flex;"><span>        p<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>        cnt<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (tmplen <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>        out[cnt] <span style="color:#ff79c6">=</span> ((<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;9&#39;</span>) <span style="color:#ff79c6">&amp;&amp;</span> ((<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;F&#39;</span>) <span style="color:#ff79c6">||</span> (<span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;f&#39;</span>))) <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">48</span> <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">7</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">*</span>p <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">48</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (outlen <span style="color:#ff79c6">!=</span> <span style="color:#8be9fd;font-style:italic">NULL</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">*</span>outlen <span style="color:#ff79c6">=</span> tmplen <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">+</span> tmplen <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> tmplen <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">+</span> tmplen <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> byteToHexStr(<span style="color:#8be9fd">unsigned</span> <span style="color:#8be9fd">char</span> byte_arr[], <span style="color:#8be9fd">int</span> arr_len, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>HexStr, <span style="color:#8be9fd">int</span> <span style="color:#ff79c6">*</span>HexStrLen)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> i, index <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> arr_len; i<span style="color:#ff79c6">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">char</span> hex1;
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">char</span> hex2;
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> value <span style="color:#ff79c6">=</span> byte_arr[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> v1 <span style="color:#ff79c6">=</span> value <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">16</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">int</span> v2 <span style="color:#ff79c6">=</span> value <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">16</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (v1 <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> v1 <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">9</span>)
+</span></span><span style="display:flex;"><span>            hex1 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span>)(<span style="color:#bd93f9">48</span> <span style="color:#ff79c6">+</span> v1);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>            hex1 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span>)(<span style="color:#bd93f9">55</span> <span style="color:#ff79c6">+</span> v1);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (v2 <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> v2 <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">9</span>)
+</span></span><span style="display:flex;"><span>            hex2 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span>)(<span style="color:#bd93f9">48</span> <span style="color:#ff79c6">+</span> v2);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>            hex2 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span>)(<span style="color:#bd93f9">55</span> <span style="color:#ff79c6">+</span> v2);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">*</span>HexStrLen <span style="color:#ff79c6">&lt;=</span> i)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        HexStr[index<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">=</span> hex1;
+</span></span><span style="display:flex;"><span>        HexStr[index<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">=</span> hex2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">*</span>HexStrLen <span style="color:#ff79c6">=</span> index;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://blowizer.com/"><img src="/img/favicon.png" />卜陋专匠</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/" data-toggle="tooltip" data-placement="top" title="刷脸支付Netty异常 ">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="重新编排 c 代码 ">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://wugjun.github.io">卜陋专酱</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:wuguojun@chinasofti.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    <li>
+                        <a target="_blank" href="/img/wechat.jpg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/blowizer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="卜陋专匠" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; 卜陋专匠 2022
+                    <br>
+                    
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发 on 卜陋专匠</title>
+    <link>https://blowizer.com/tags/%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in 开发 on 卜陋专匠</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blowizer.com/tags/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>刷脸支付Netty异常 </title>
+      <link>https://blowizer.com/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blowizer.com/post/2020-06-16-%E5%88%B7%E8%84%B8%E6%94%AF%E4%BB%98netty%E5%BC%82%E5%B8%B8/</guid>
+      <description>netty 常见问题 内存溢出 对于交易报文比较小是问题不会暴漏，当数据报文大于60k时就会引发内存溢出问题。 对此问题注意io.netty.buffer.</description>
+    </item>
+    
+  </channel>
+</rss>

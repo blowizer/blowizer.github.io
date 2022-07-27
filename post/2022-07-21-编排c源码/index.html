@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="卜陋专匠">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://blowizer.com//img/wym.jpg">
+    <meta property="twitter:image" content="https://blowizer.com//img/wym.jpg" />
+    
+
+    
+    <meta name="title" content="重新编排 c 代码 " />
+    <meta property="og:title" content="重新编排 c 代码 " />
+    <meta property="twitter:title" content="重新编排 c 代码 " />
+    
+
+    
+    <meta name="description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="武国军，程序员, 开源爱好者，生活探险家 | 这里是 武国军 的博客，与你一起发现更大的世界。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="武国军, blowizer, blwoizer, , 武国军的网络日志, 武国军的博客, blowizer Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>重新编排 c 代码  | 与你同行</title>
+
+    <link rel="canonical" href="/post/2022-07-21-%E7%BC%96%E6%8E%92c%E6%BA%90%E7%A0%81/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.1/css/all.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">卜陋专匠</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/notes">notes</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive/">ARCHIVE</a></li>
+                    
+                        <li><a href="/notes/">NOTES</a></li>
+                    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/post-bg-coffee.jpeg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/c" title="c">
+                            c
+                        </a>
+                        
+                    </div>
+                    <h1>重新编排 c 代码 </h1>
+                    <h2 class="subheading">奇门遁甲</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                blowizer
+                             
+                            on 
+                            Saturday, July 9, 2022
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="问题描述">问题描述</h2>
+<pre><code>字符串被显示为acssi码, 数值被hex加减
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>        <span style="color:#ff79c6">#define STR_BUFLEN (0x792+3274-0x143c)
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>        sprintf(<span style="color:#f1fa8c">&#34;stmp&#34;</span>, <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\x25\x30\x2a\x64</span><span style="color:#f1fa8c">&#34;</span>,nLen, nNum<span style="color:#f1fa8c">&#34;);</span>
+</span></span></code></pre></div><h2 id="转换思路">转换思路</h2>
+<p>字符: acssi 转 string
+数值: 计算出值</p>
+<h2 id="贴代码">贴代码</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;unistd.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;fcntl.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdio.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdlib.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;string.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;errno.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#define setnull(x) memset(&amp;(x), 0, sizeof(x))
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#define CAL(x, y, z) x + y - z
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#define ERR_EXIT(m) \
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">    do { \
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">        fprintf(stderr, &#34;[%s][%d]:%s %s \n&#34; ,__FILE__, __LINE__, m, strerror(errno));\
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">        exit(EXIT_FAILURE); \
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">        }while(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>( <span style="color:#8be9fd">int</span> argc, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv){
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> i,j,len,varLen,ilen ;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> buf[<span style="color:#bd93f9">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> temp[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> var[<span style="color:#bd93f9">64</span>],var1[<span style="color:#bd93f9">64</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> ascii[<span style="color:#bd93f9">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> hexBuf[<span style="color:#bd93f9">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> fbuf[<span style="color:#bd93f9">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> tobuf[<span style="color:#bd93f9">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> begin <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, end <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; 
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>data;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>pstr;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>pstr1;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> retlen;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> varBuf[<span style="color:#bd93f9">20</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> varRet;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">char</span> srcfile[<span style="color:#bd93f9">256</span>],destfile[<span style="color:#bd93f9">256</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    setnull(srcfile);
+</span></span><span style="display:flex;"><span>    setnull(destfile);
+</span></span><span style="display:flex;"><span>    sprintf(srcfile,<span style="color:#f1fa8c">&#34;%s&#34;</span>, argv[<span style="color:#bd93f9">1</span>]);
+</span></span><span style="display:flex;"><span>    sprintf(destfile,<span style="color:#f1fa8c">&#34;%s&#34;</span>, argv[<span style="color:#bd93f9">2</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//printf(&#34;%s\n&#34;,argv[1]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//printf(&#34;%s\n&#34;,srcfile);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//printf(&#34;%s\n&#34;,argv[2]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//printf(&#34;%s\n&#34;,destfile);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//strcpy(hexBuf, argv[1]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    FILE<span style="color:#ff79c6">*</span> fd <span style="color:#ff79c6">=</span> fopen(srcfile,<span style="color:#f1fa8c">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>    FILE<span style="color:#ff79c6">*</span> fdw <span style="color:#ff79c6">=</span> fopen(destfile,<span style="color:#f1fa8c">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span>(fd){
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">while</span>(<span style="color:#ff79c6">!</span>feof(fd)){
+</span></span><span style="display:flex;"><span>           memset(fbuf, <span style="color:#bd93f9">0x00</span>, <span style="color:#ff79c6">sizeof</span>(fbuf));
+</span></span><span style="display:flex;"><span>           data <span style="color:#ff79c6">=</span> fgets(fbuf,<span style="color:#ff79c6">sizeof</span>(fbuf)<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>,fd);
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">if</span>(data){
+</span></span><span style="display:flex;"><span>                memset(tobuf, <span style="color:#bd93f9">0x00</span>, <span style="color:#ff79c6">sizeof</span>(tobuf));
+</span></span><span style="display:flex;"><span>                len <span style="color:#ff79c6">=</span> strlen(data);
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">for</span> (i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> len;){
+</span></span><span style="display:flex;"><span>                   <span style="color:#ff79c6">if</span>(<span style="color:#ff79c6">!</span>memcmp(data <span style="color:#ff79c6">+</span> i,<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\\</span><span style="color:#f1fa8c">x&#34;</span>,<span style="color:#bd93f9">2</span>)){
+</span></span><span style="display:flex;"><span>                       memset(ascii, <span style="color:#bd93f9">0x00</span>, <span style="color:#bd93f9">2</span>);
+</span></span><span style="display:flex;"><span>                       memcpy(temp, data <span style="color:#ff79c6">+</span> i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">2</span>);
+</span></span><span style="display:flex;"><span>                       <span style="color:#6272a4">//printf(&#34;temp: %s\n&#34;, temp);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                       hex2ascii(temp, ascii);
+</span></span><span style="display:flex;"><span>                       <span style="color:#6272a4">//printf(&#34;ascii: %s\n&#34;, ascii);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                       memcpy(tobuf <span style="color:#ff79c6">+</span> j, ascii, <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>                       i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">4</span>;
+</span></span><span style="display:flex;"><span>                       j<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>                       <span style="color:#6272a4">//printf(&#34;find \\x string offset %d\n&#34;, i); 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>                   }<span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span>(<span style="color:#ff79c6">!</span>memcmp(data <span style="color:#ff79c6">+</span> i,<span style="color:#f1fa8c">&#34;(0x&#34;</span>,<span style="color:#bd93f9">3</span>)){
+</span></span><span style="display:flex;"><span>                        memset(var, <span style="color:#bd93f9">0x00</span>, <span style="color:#ff79c6">sizeof</span>(var));
+</span></span><span style="display:flex;"><span>                        memset(var1, <span style="color:#bd93f9">0x00</span>, <span style="color:#ff79c6">sizeof</span>(var1));
+</span></span><span style="display:flex;"><span>                        memset(varBuf, <span style="color:#bd93f9">0x00</span>, <span style="color:#ff79c6">sizeof</span>(varBuf));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        memcpy(var, data <span style="color:#ff79c6">+</span> i, <span style="color:#ff79c6">sizeof</span>(var));  
+</span></span><span style="display:flex;"><span>                        <span style="color:#6272a4">//printf(&#34;var: %s \n&#34;, var);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>                        pstr <span style="color:#ff79c6">=</span> strchr(var, <span style="color:#f1fa8c">&#39;(&#39;</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#ff79c6">if</span> ( pstr <span style="color:#ff79c6">!=</span> <span style="color:#8be9fd;font-style:italic">NULL</span>)
+</span></span><span style="display:flex;"><span>                        {
+</span></span><span style="display:flex;"><span>                            <span style="color:#ff79c6">if</span>( pstr1 <span style="color:#ff79c6">=</span> strstr(var, <span style="color:#f1fa8c">&#34;)&#34;</span>)){
+</span></span><span style="display:flex;"><span>                                <span style="color:#6272a4">//printf(&#34;find ),\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                                varLen <span style="color:#ff79c6">=</span> pstr1 <span style="color:#ff79c6">-</span> pstr ;
+</span></span><span style="display:flex;"><span>                                <span style="color:#6272a4">//printf(&#34;%d\n&#34;, varLen);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                                memcpy(var1, var<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>,varLen <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>                                varRet <span style="color:#ff79c6">=</span> cal(var1);
+</span></span><span style="display:flex;"><span>                                sprintf(varBuf,<span style="color:#f1fa8c">&#34;%d&#34;</span>,varRet);
+</span></span><span style="display:flex;"><span>                                <span style="color:#6272a4">//printf(&#34;%s,%d\n&#34;,varBuf,varRet);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                                ilen <span style="color:#ff79c6">=</span> strlen(varBuf);
+</span></span><span style="display:flex;"><span>                                memcpy(tobuf <span style="color:#ff79c6">+</span> j, varBuf , ilen);
+</span></span><span style="display:flex;"><span>                                j <span style="color:#ff79c6">+=</span> ilen ;
+</span></span><span style="display:flex;"><span>                                i <span style="color:#ff79c6">+=</span> varLen <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                           <span style="color:#6272a4">//else if( pstr1 = strstr(var, &#34;);&#34;)){
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;find );\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     int varLen = pstr1 - pstr ;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;%d\n&#34;, varLen);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     memcpy(var1, var+1,varLen -1);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     varRet = cal(var1);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     sprintf(varBuf,&#34;%d;&#34;,varRet);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;%s,%d\n&#34;,varBuf,varRet);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     int ilen = strlen(varBuf);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     memcpy(tobuf + j, varBuf , ilen + 1);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     j += ilen + 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     i += varLen + 1 + 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//else if( pstr1 = strstr(var, &#34;)&#34;)){
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;find )\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     int varLen = pstr1 - pstr ;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;%d\n&#34;, varLen);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     memcpy(var1, var+1,varLen -1);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     varRet = cal(var1);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     sprintf(varBuf,&#34;%d&#34;,varRet);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     printf(&#34;%s,%d\n&#34;,varBuf,varRet);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     int ilen = strlen(varBuf);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     memcpy(tobuf + j, varBuf , ilen );
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     j += ilen;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//     i += varLen + 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                           <span style="color:#6272a4">//// }
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                        }
+</span></span><span style="display:flex;"><span>                   }<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                       tobuf[j] <span style="color:#ff79c6">=</span> data[i];
+</span></span><span style="display:flex;"><span>                       i<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>                       j<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>                   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4">//printf(&#34;%s&#34;, data);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                fprintf(fdw,<span style="color:#f1fa8c">&#34;%s&#34;</span>,tobuf);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#ff79c6">else</span>{
+</span></span><span style="display:flex;"><span>        ERR_EXIT(<span style="color:#f1fa8c">&#34;open file failure&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    fclose(fd);
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//for( i = 0; i &lt; strlen(argv[1]); i++){ 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//    printf(&#34;%c\n&#34;, argv[i]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//int ret =  hex2ascii(hexBuf,buf);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//for( i = 0; i &lt; strlen(buf); i++){ 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//    printf(&#34;%c&#34;, buf[i]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">//printf(&#34;\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">hex2ascii</span>(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>hex, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>ascii)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> len <span style="color:#ff79c6">=</span> strlen(hex), tlen, cnt , i;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span>( i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>, cnt <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span> ,tlen <span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> len; i<span style="color:#ff79c6">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">char</span> c <span style="color:#ff79c6">=</span> toupper(hex[i]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span>(( c <span style="color:#ff79c6">&gt;=</span> <span style="color:#f1fa8c">&#39;0&#39;</span> <span style="color:#ff79c6">&amp;&amp;</span> c <span style="color:#ff79c6">&lt;=</span><span style="color:#f1fa8c">&#39;9&#39;</span>) <span style="color:#ff79c6">||</span> ( c <span style="color:#ff79c6">&gt;=</span> <span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">&amp;&amp;</span> c <span style="color:#ff79c6">&lt;=</span> <span style="color:#f1fa8c">&#39;F&#39;</span>))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">int</span>  t <span style="color:#ff79c6">=</span> ( c <span style="color:#ff79c6">&gt;=</span><span style="color:#f1fa8c">&#39;A&#39;</span>) <span style="color:#ff79c6">?</span> c <span style="color:#ff79c6">-</span> <span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">10</span> <span style="color:#ff79c6">:</span> c <span style="color:#ff79c6">-</span> <span style="color:#f1fa8c">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span>(cnt)
+</span></span><span style="display:flex;"><span>                ascii[tlen<span style="color:#ff79c6">++</span>] <span style="color:#ff79c6">+=</span> t, cnt <span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">else</span> 
+</span></span><span style="display:flex;"><span>                ascii[tlen] <span style="color:#ff79c6">=</span> t <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">4</span>, cnt <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> tlen;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">cal</span>(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>exprs){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> x,y,z;
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">//printf(&#34;%s\n&#34;, exprs);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    sscanf(exprs,<span style="color:#f1fa8c">&#34;%x + %d - %x&#34;</span>,<span style="color:#ff79c6">&amp;</span>x,<span style="color:#ff79c6">&amp;</span>y,<span style="color:#ff79c6">&amp;</span>z);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> CAL(x,y,z); 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="编译">编译</h2>
+<p>gcc -o hex2ascii hex2ascii.c</p>
+<h2 id="测试">测试</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff79c6">#!/bin/bash 
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">srcfiles</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">`</span>find src -name <span style="color:#f1fa8c">&#34;*.*c&#34;</span>|egrep -v <span style="color:#f1fa8c">&#34;src/common/crypto/|src/sqlmem&#34;</span><span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">hsrcfiles</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">`</span>find src -name <span style="color:#f1fa8c">&#34;*.*h&#34;</span>|egrep -v <span style="color:#f1fa8c">&#34;src/common/crypto/|src/sqlmem&#34;</span><span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[</span> ! -d newsrc <span style="color:#ff79c6">]</span>; <span style="color:#ff79c6">then</span>
+</span></span><span style="display:flex;"><span>    mkdir newsrc
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#for srcfile in $hsrcfiles</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#do</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#     echo $srcfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#     cp ${srcfile} ${srcfile}.tmp</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#     ./hex2ascii ${srcfile}.tmp ${srcfile}</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#     rm ${srcfile}.tmp</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> srcfile in <span style="color:#8be9fd;font-style:italic">$srcfiles</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">do</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$srcfile</span>
+</span></span><span style="display:flex;"><span>     cp <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">srcfile</span><span style="color:#f1fa8c">}</span> <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">srcfile</span><span style="color:#f1fa8c">}</span>.tmp
+</span></span><span style="display:flex;"><span>     ./hex2ascii <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">srcfile</span><span style="color:#f1fa8c">}</span>.tmp <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">srcfile</span><span style="color:#f1fa8c">}</span>
+</span></span><span style="display:flex;"><span>     rm <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">srcfile</span><span style="color:#f1fa8c">}</span>.tmp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">done</span>
+</span></span></code></pre></div><h2 id="astyle优化">Astyle优化</h2>
+<p>AStyle &ndash;style=ansi 文件名</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://blowizer.com/"><img src="/img/favicon.png" />卜陋专匠</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/2022-06-21-loadrunner%E6%B5%8B%E8%AF%95/" data-toggle="tooltip" data-placement="top" title="Loadrunner 测试">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://wugjun.github.io">卜陋专酱</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:wuguojun@chinasofti.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    <li>
+                        <a target="_blank" href="/img/wechat.jpg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/blowizer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="卜陋专匠" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; 卜陋专匠 2022
+                    <br>
+                    
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
